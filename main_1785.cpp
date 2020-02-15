@@ -12,7 +12,6 @@ int main(int argc, char * argv []) {
     size_t a;
     std::cin >> a;
 
-//for (size_t a = 1; a <=2000; ++a) {
     size_t l = 0;
     size_t r = 8;
     size_t i = (r + l) / 2;
@@ -27,8 +26,6 @@ int main(int argc, char * argv []) {
             i = (r + l) / 2;
         }
     }
-//    cout << index[i] << " <-- " << a << endl;
-//}
 
     std::cout << values[i] << std::endl;
 
