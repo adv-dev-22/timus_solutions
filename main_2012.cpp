@@ -7,7 +7,7 @@ int main(int argc, char * argv []) {
 
     const size_t N = 12;
     if ((12 - f) * 45 <= 240) std::cout << "YES" << std::endl;
-    else std::cout << "NO" << std::endl;
+    else std::cout << "NO" << std:: endl;
 
     return 0;
 }

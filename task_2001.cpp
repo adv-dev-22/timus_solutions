@@ -14,14 +14,12 @@
 
 int main(int argc, char * argv []) {
 
-    int a1, b1, a2, b2, a3, b3;
+    int a1, b1, a2, w2, w1, b3;  // b2, a3
 
     std::cin >> a1 >> b1;
-    std::cin >> a2 >> b2;
-    std::cin >> a3 >> b3;
+    std::cin >> a2 >> w2;
+    std::cin >> w1 >> b3;
 
-    int w1 = a3;
-    int w2 = b2;
     int y1 = a1 - w1;
     int y2 = b1 - w2;
 
