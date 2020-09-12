@@ -32,18 +32,18 @@ int main(int argc, char * argv [])
     std::vector<int>  distance(names_set.size(), -1);
     std::vector<bool> visited(names_set.size(), false);
 
-    // Debug
-    std::vector<std::string> labels(names_set.begin(), names_set.end());
+//    // Debug
+//    std::vector<std::string> labels(names_set.begin(), names_set.end());
 
     // Hashes
     auto itr = names_set.begin();
     for (int k = 0; itr != names_set.end(); ++itr)
     {
         auto xp = std::make_pair(*itr, k++);
-        std::cout << xp.first << " " << xp.second << std::endl;
+        //std::cout << xp.first << " " << xp.second << std::endl;
         umap_names_idx.insert(xp);
     }
-    std::cout << umap_names_idx.size() << std::endl;
+//    std::cout << umap_names_idx.size() << std::endl;
 
     graph.resize(umap_names_idx.size());
 
@@ -56,50 +56,57 @@ int main(int argc, char * argv [])
            graph[umap_names_idx[team[i][j]]].insert(umap_names_idx[team[i][(j + 1) % 3]]);
            graph[umap_names_idx[team[i][j]]].insert(umap_names_idx[team[i][(j + 2) % 3]]);
         }
-        std::cout << std::endl;
+//        std::cout << std::endl;
     }
 
-    for (int i = 0; i < graph.size(); ++i)
-    {
-        std::cout << i << ": ";
-        for (auto item : graph.at(i))
-        {
-            std::cout << " ->" << item << ",";
-        }
-        std::cout << std::endl;
-    }
+//    for (int i = 0; i < graph.size(); ++i)
+//    {
+//        std::cout << i << ": ";
+//        for (auto item : graph.at(i))
+//        {
+//            std::cout << " ->" << item << ",";
+//        }
+//        std::cout << std::endl;
+//    }
 
     // BFS
-    const std::string start_node("B");
+    const std::string start_node("Isenbaev");
     std::queue<int> nodes_queue;
-    nodes_queue.push(umap_names_idx[start_node]);
-    visited[umap_names_idx[start_node]] = true;
-    distance[umap_names_idx[start_node]] = 0;
 
-    std::cout << " BFS: " << std::endl;
-    while (!nodes_queue.empty())
+    auto isen_itr = umap_names_idx.find(start_node);
+    if (umap_names_idx.end() != isen_itr)
     {
-        std::cout << "next while step ----- " << std::endl;
-        std::cout << "size: " << nodes_queue.size() << std::endl;
-        int node = nodes_queue.front();
-//        visited[node] = true;
-        nodes_queue.pop();
+        const int isen_idx = isen_itr->second;
+        nodes_queue.push(isen_idx);
+        visited[isen_idx] = true;
+        distance[isen_idx] = 0;
 
-
-        std::cout << node << "-" << labels.at(node) << " ";
-
-        for (auto item : graph.at(node))
+        //std::cout << " BFS: " << std::endl;
+        while (!nodes_queue.empty())
         {
-            if (!visited[item])
+//            std::cout << "next while step ----- " << std::endl;
+//            std::cout << "size: " << nodes_queue.size() << std::endl;
+            int node = nodes_queue.front();
+            nodes_queue.pop();
+
+//            std::cout << node << "-" << labels.at(node) << " ";
+
+            for (auto item : graph.at(node))
             {
-                nodes_queue.push(item);
-                visited[item] = true;
-                distance[item] = distance[node] + 1;
+                if (!visited[item])
+                {
+                    nodes_queue.push(item);
+                    visited[item] = true;
+                    distance[item] = distance[node] + 1;
+                }
             }
         }
+//        std::cout << std::endl;
     }
-    std::cout << std::endl;
+//    std::cout << std::endl << std::endl;
 
+
+    // Print
     int k = 0;
     for (auto itr = names_set.begin(); itr != names_set.end(); ++itr, ++k)
     {
@@ -111,30 +118,9 @@ int main(int argc, char * argv [])
         {
             std::cout << *itr << " " << "undefined" << std::endl;
         }
-
     }
 
     return 0;
 }
 
-
 // End of the file
-
-
-//    for (int i = 0; i < N; ++i)
-//    {
-//        for (int k = 0; k < 3; ++k)
-//        {
-//            std::cout << team[i][k] << " ";
-//        }
-//        std::cout << std::endl;
-//    }
-
-
-//    for (auto item : names_set)
-//    {
-//        std::cout << item << " ";
-//    }
-//    std::cout << std::endl;
-
-
