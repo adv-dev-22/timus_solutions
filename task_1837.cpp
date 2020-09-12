@@ -32,18 +32,13 @@ int main(int argc, char * argv [])
     std::vector<int>  distance(names_set.size(), -1);
     std::vector<bool> visited(names_set.size(), false);
 
-//    // Debug
-//    std::vector<std::string> labels(names_set.begin(), names_set.end());
-
     // Hashes
     auto itr = names_set.begin();
     for (int k = 0; itr != names_set.end(); ++itr)
     {
         auto xp = std::make_pair(*itr, k++);
-        //std::cout << xp.first << " " << xp.second << std::endl;
         umap_names_idx.insert(xp);
     }
-//    std::cout << umap_names_idx.size() << std::endl;
 
     graph.resize(umap_names_idx.size());
 
@@ -53,21 +48,11 @@ int main(int argc, char * argv [])
         int j = 0;
         for (int j = 0; j < 3; ++j)
         {
-           graph[umap_names_idx[team[i][j]]].insert(umap_names_idx[team[i][(j + 1) % 3]]);
-           graph[umap_names_idx[team[i][j]]].insert(umap_names_idx[team[i][(j + 2) % 3]]);
+            const int idx = umap_names_idx[team[i][j]];
+            graph[idx].insert(umap_names_idx[team[i][(j + 1) % 3]]);
+            graph[idx].insert(umap_names_idx[team[i][(j + 2) % 3]]);
         }
-//        std::cout << std::endl;
     }
-
-//    for (int i = 0; i < graph.size(); ++i)
-//    {
-//        std::cout << i << ": ";
-//        for (auto item : graph.at(i))
-//        {
-//            std::cout << " ->" << item << ",";
-//        }
-//        std::cout << std::endl;
-//    }
 
     // BFS
     const std::string start_node("Isenbaev");
@@ -81,15 +66,10 @@ int main(int argc, char * argv [])
         visited[isen_idx] = true;
         distance[isen_idx] = 0;
 
-        //std::cout << " BFS: " << std::endl;
         while (!nodes_queue.empty())
         {
-//            std::cout << "next while step ----- " << std::endl;
-//            std::cout << "size: " << nodes_queue.size() << std::endl;
             int node = nodes_queue.front();
             nodes_queue.pop();
-
-//            std::cout << node << "-" << labels.at(node) << " ";
 
             for (auto item : graph.at(node))
             {
@@ -101,10 +81,7 @@ int main(int argc, char * argv [])
                 }
             }
         }
-//        std::cout << std::endl;
     }
-//    std::cout << std::endl << std::endl;
-
 
     // Print
     int k = 0;
